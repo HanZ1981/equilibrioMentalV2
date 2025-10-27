@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Cuidado Emocional</title>
+    <meta name="description" content="Entre em contato conosco para agendar sua consulta ou esclarecer dúvidas sobre nossos serviços de psicologia.">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <main class="pagina-interna">
+        <div class="container-interno">
+            <header class="cabecalho-pagina">
+                <h1 class="titulo-pagina">Entre em Contato</h1>
+                <p class="subtitulo-pagina">Estamos aqui para ajudar você a dar o primeiro passo</p>
+            </header>
+
+            <div class="conteudo-pagina">
+                <h2>Agende sua Consulta</h2>
+                <p>Preencha o formulário abaixo e entraremos em contato para agendar sua primeira consulta. Todas as informações são tratadas com total confidencialidade.</p>
+                
+                <form class="formulario">
+                    <div class="grupo-campo">
+                        <label for="nome" class="rotulo-campo">Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" class="campo-entrada" required>
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="email" class="rotulo-campo">E-mail *</label>
+                        <input type="email" id="email" name="email" class="campo-entrada" required>
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="telefone" class="rotulo-campo">Telefone/WhatsApp *</label>
+                        <input type="tel" id="telefone" name="telefone" class="campo-entrada" required>
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="idade" class="rotulo-campo">Idade</label>
+                        <input type="number" id="idade" name="idade" class="campo-entrada" min="18" max="100">
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="modalidade" class="rotulo-campo">Modalidade de Interesse</label>
+                        <select id="modalidade" name="modalidade" class="campo-entrada">
+                            <option value="">Selecione uma opção</option>
+                            <option value="individual">Terapia Individual</option>
+                            <option value="familiar">Terapia Familiar</option>
+                            <option value="online">Atendimento Online</option>
+                            <option value="nao-sei">Não sei ainda</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="preferencia-horario" class="rotulo-campo">Preferência de Horário</label>
+                        <select id="preferencia-horario" name="preferencia-horario" class="campo-entrada">
+                            <option value="">Selecione uma opção</option>
+                            <option value="manha">Manhã (8h às 12h)</option>
+                            <option value="tarde">Tarde (13h às 17h)</option>
+                            <option value="noite">Noite (18h às 21h)</option>
+                            <option value="flexivel">Horário flexível</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="como-conheceu" class="rotulo-campo">Como nos conheceu?</label>
+                        <select id="como-conheceu" name="como-conheceu" class="campo-entrada">
+                            <option value="">Selecione uma opção</option>
+                            <option value="indicacao">Indicação de amigo/familiar</option>
+                            <option value="google">Pesquisa no Google</option>
+                            <option value="redes-sociais">Redes Sociais</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grupo-campo">
+                        <label for="mensagem" class="rotulo-campo">Conte-nos um pouco sobre o que você está buscando</label>
+                        <textarea id="mensagem" name="mensagem" class="campo-texto" placeholder="Compartilhe o que você gostaria de trabalhar ou esclarecer. Lembre-se de que este espaço é confidencial e sem julgamentos."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="botao-enviar">Enviar Solicitação</button>
+                </form>
+                
+                <h2>Outras Formas de Contato</h2>
+                
+                <h3>Telefone e WhatsApp</h3>
+                <p><strong>(11) 99999-9999</strong></p>
+                <p>Horário de atendimento: Segunda a sexta, das 8h às 18h</p>
+                
+                <h3>E-mail</h3>
+                <p><strong>contato@cuidadoemocional.com.br</strong></p>
+                <p>Respondemos em até 24 horas</p>
+                
+                <h3>Atendimento Online</h3>
+                <p>Realizamos atendimentos por videochamada para maior comodidade e flexibilidade. A qualidade do atendimento é a mesma do presencial.</p>
+                
+                <h2>Dúvidas Frequentes sobre o Primeiro Atendimento</h2>
+                
+                <h3>Preciso de encaminhamento médico?</h3>
+                <p>Não, você pode procurar atendimento psicológico diretamente, sem necessidade de encaminhamento.</p>
+                
+                <h3>Quanto tempo dura uma sessão?</h3>
+                <p>Cada sessão tem duração de 50 minutos.</p>
+                
+                <h3>Com que frequência preciso vir?</h3>
+                <p>A frequência é definida conforme sua necessidade, geralmente semanal ou quinzenal.</p>
+                
+                <h3>Posso cancelar ou reagendar?</h3>
+                <p>Sim, pedimos apenas que nos avise com 24 horas de antecedência.</p>
+                
+                <h3>O atendimento é confidencial?</h3>
+                <p>Absolutamente. O sigilo profissional é garantido por lei e é fundamental para um trabalho terapêutico efetivo.</p>
+            </div>
+
+            <nav class="navegacao-volta">
+                <a href="index.html" class="botao-voltar">← Voltar ao Início</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

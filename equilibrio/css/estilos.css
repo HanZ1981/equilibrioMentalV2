@@ -1,0 +1,474 @@
+/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    min-height: 100vh;
+}
+
+/* Layout Principal */
+.pagina-principal {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container-principal {
+    width: 100%;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 600px;
+}
+
+/* Painel Lateral */
+.painel-lateral {
+    background: #f8f9fa;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #e9ecef;
+}
+
+.cabecalho-boas-vindas {
+    margin-bottom: 30px;
+}
+
+.titulo-boas-vindas {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+}
+
+/* Menu de Navegação */
+.menu-navegacao {
+    flex-grow: 1;
+}
+
+.lista-menu {
+    list-style: none;
+}
+
+.item-menu {
+    margin-bottom: 15px;
+}
+
+.link-menu {
+    text-decoration: none;
+    color: #495057;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: block;
+    padding: 8px 0;
+}
+
+.link-menu:hover {
+    color: #ffd700;
+    transform: translateX(5px);
+}
+
+/* Botão Login */
+.area-botao {
+    margin-top: 20px;
+}
+
+.botao-login {
+    display: inline-block;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    padding: 12px 30px;
+    border: 2px solid #333;
+    border-radius: 25px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.botao-login:hover {
+    background: #333;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Conteúdo Principal */
+.conteudo-principal {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.area-central {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Ilustração */
+.ilustracao-container {
+    margin-bottom: 30px;
+}
+
+.ilustracao-cerebros {
+    width: 400px;
+    object-fit: contain;
+}
+
+/* Texto Principal */
+.texto-principal {
+    margin-bottom: 40px;
+    max-width: 400px;
+}
+
+.descricao-servicos {
+    font-size: 16px;
+    color: #2c3e50;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Balões Motivacionais */
+.baloes-motivacionais {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.balao-fala {
+    background: #fff;
+    border-radius: 20px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+.balao-fala:hover {
+    transform: translateX(5px);
+}
+
+.balao-fala p {
+    font-size: 14px;
+    color: #2c3e50;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.balao-1 {
+    align-self: flex-end;
+    max-width: 80%;
+}
+
+.balao-2 {
+    align-self: center;
+    max-width: 85%;
+}
+
+.balao-3 {
+    align-self: flex-start;
+    max-width: 80%;
+}
+
+/* Rodapé */
+.rodape-navegacao {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link-sobre {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease;
+}
+
+.link-sobre:hover {
+    border-bottom: 2px solid #2c3e50;
+}
+
+/* Páginas Internas */
+.pagina-interna {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    padding: 20px;
+}
+
+.container-interno {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho-pagina {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.titulo-pagina {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitulo-pagina {
+    font-size: 18px;
+    color: #6c757d;
+    line-height: 1.5;
+}
+
+.conteudo-pagina {
+    line-height: 1.8;
+    font-size: 16px;
+    color: #495057;
+}
+
+.conteudo-pagina h2 {
+    color: #2c3e50;
+    margin: 30px 0 15px 0;
+    font-size: 24px;
+}
+
+.conteudo-pagina h3 {
+    color: #495057;
+    margin: 25px 0 10px 0;
+    font-size: 20px;
+}
+
+.conteudo-pagina p {
+    margin-bottom: 15px;
+}
+
+.conteudo-pagina ul {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.conteudo-pagina li {
+    margin-bottom: 8px;
+}
+
+/* Navegação de Volta */
+.navegacao-volta {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #f8f9fa;
+}
+
+.botao-voltar {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #2c3e50;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.botao-voltar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Formulários */
+.formulario {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.grupo-campo {
+    margin-bottom: 20px;
+}
+
+.rotulo-campo {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.campo-entrada,
+.campo-texto {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.campo-entrada:focus,
+.campo-texto:focus {
+    outline: none;
+    border-color: #ffd700;
+}
+
+.campo-texto {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.botao-enviar {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #2c3e50;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.botao-enviar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Cards de Profissionais */
+.grid-profissionais {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.card-profissional {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card-profissional:hover {
+    transform: translateY(-5px);
+}
+
+.nome-profissional {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.especialidade {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.descricao-profissional {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.6;
+}
+
+/* Cards de Depoimentos */
+.grid-depoimentos {
+    display: grid;
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.card-depoimento {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    border-left: 4px solid #ffd700;
+}
+
+.texto-depoimento {
+    font-style: italic;
+    font-size: 16px;
+    color: #495057;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.autor-depoimento {
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: right;
+}
+
+/* Site funcionar no cell */
+@media (max-width: 768px) {
+    .container-principal {
+        grid-template-columns: 1fr;
+        margin: 10px;
+    }
+    
+    .painel-lateral {
+        order: 2;
+        padding: 30px 20px;
+    }
+    
+    .conteudo-principal {
+        order: 1;
+        padding: 30px 20px;
+    }
+    
+    .baloes-motivacionais {
+        gap: 15px;
+    }
+    
+    .balao-fala {
+        max-width: 100% !important;
+        align-self: stretch !important;
+    }
+    
+    .titulo-boas-vindas {
+        font-size: 20px;
+    }
+    
+    .container-interno {
+        margin: 10px;
+        padding: 30px 20px;
+    }
+    
+    .titulo-pagina {
+        font-size: 28px;
+    }
+    
+    .grid-profissionais {
+        grid-template-columns: 1fr;
+    }
+}
