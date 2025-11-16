@@ -6,6 +6,21 @@
     <title>Login - Cuidado Emocional</title>
     <meta name="description" content="Acesse sua área exclusiva de paciente para agendar consultas e acompanhar seu histórico.">
     <link rel="stylesheet" href="css/estilos.css">
+    <style>
+      
+      .mensagem-feedback {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 15px;
+      }
+      .mensagem-sucesso {
+        color: green;
+      }
+      .mensagem-erro {
+        color: red;
+      }
+    </style>
 </head>
 <body>
     <main class="pagina-interna">
@@ -16,18 +31,21 @@
             </header>
 
             <div class="conteudo-pagina">
-                <form class="formulario">
+                <form class="formulario" id="form-login">
                     <div class="grupo-campo">
                         <label for="email-login" class="rotulo-campo">E-mail *</label>
                         <input type="email" id="email-login" name="email-login" class="campo-entrada" required>
                     </div>
                     
                     <div class="grupo-campo">
-                        <label for="senha" class="rotulo-campo">Senha *</label>
-                        <input type="password" id="senha" name="senha" class="campo-entrada" required>
+                        <label for="senha-login" class="rotulo-campo">Senha *</label>
+                        <input type="password" id="senha-login" name="senha" class="campo-entrada" required>
                     </div>
                     
                     <button type="submit" class="botao-enviar">Entrar</button>
+
+                    <p id="mensagem-feedback" class="mensagem-feedback"></p>
+
                 </form>
                 
                 <div style="text-align: center; margin: 30px 0;">
@@ -35,44 +53,8 @@
                 </div>
                 
                 <h2>Ainda não tem uma conta?</h2>
-                <p>Se você é um novo paciente, entre em contato conosco através da página de contato para criar sua conta e agendar sua primeira consulta.</p>
+                <p>Se você é um novo paciente, <a href="cadastro.html">clique aqui para se cadastrar</a> e agendar sua primeira consulta.</p>
                 
-                <h2>Área do Paciente - Funcionalidades</h2>
-                <p>Ao fazer login, você terá acesso a:</p>
-                
-                <ul>
-                    <li><strong>Agendamento de consultas:</strong> Veja horários disponíveis e agende suas sessões</li>
-                    <li><strong>Histórico de consultas:</strong> Acompanhe suas sessões anteriores</li>
-                    <li><strong>Documentos:</strong> Acesse relatórios e declarações quando necessário</li>
-                    <li><strong>Mensagens:</strong> Comunicação direta com seu terapeuta</li>
-                    <li><strong>Reagendamentos:</strong> Altere horários com facilidade</li>
-                    <li><strong>Dados pessoais:</strong> Mantenha suas informações atualizadas</li>
-                </ul>
-                
-                <h2>Segurança e Privacidade</h2>
-                <p>Levamos a segurança dos seus dados muito a sério. Nossa plataforma utiliza:</p>
-                
-                <ul>
-                    <li>Criptografia de ponta a ponta para proteção de dados</li>
-                    <li>Servidores seguros com backup diário</li>
-                    <li>Conformidade com a LGPD (Lei Geral de Proteção de Dados)</li>
-                    <li>Acesso restrito apenas aos profissionais envolvidos no seu atendimento</li>
-                    <li>Logs de segurança para monitoramento de acessos</li>
-                </ul>
-                
-                <h2>Suporte Técnico</h2>
-                <p>Caso tenha dificuldades para acessar sua conta ou utilizar alguma funcionalidade, entre em contato conosco:</p>
-                
-                <ul>
-                    <li><strong>WhatsApp:</strong> (11) 99999-9999</li>
-                    <li><strong>E-mail:</strong> suporte@cuidadoemocional.com.br</li>
-                    <li><strong>Horário:</strong> Segunda a sexta, das 8h às 18h</li>
-                </ul>
-                
-                <h2>Primeira Vez no Sistema?</h2>
-                <p>Se esta é sua primeira consulta conosco, você receberá suas credenciais de acesso por e-mail após o agendamento da primeira sessão. Certifique-se de verificar também sua caixa de spam.</p>
-                
-                <p>Caso não tenha recebido o e-mail com suas credenciais, entre em contato conosco que resolveremos rapidamente.</p>
             </div>
 
             <nav class="navegacao-volta">
@@ -80,5 +62,74 @@
             </nav>
         </div>
     </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxVKuXlbC6xGkTpGbBQKr1RYXCNL8cZQ4",
+      authDomain: "equilibriomentalv2.firebaseapp.com",
+      projectId: "equilibriomentalv2",
+      storageBucket: "equilibriomentalv2.firebasestorage.app",
+      messagingSenderId: "1054376615387",
+      appId: "1:1054376615387:web:be993d37108b0afd251bfe"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const formLogin = document.getElementById('form-login');
+    const inputEmail = document.getElementById('email-login');
+    const inputSenha = document.getElementById('senha-login');
+    const pMensagem = document.getElementById('mensagem-feedback');
+
+    formLogin.addEventListener('submit', (event) => {
+      event.preventDefault(); // Impede o recarregamento da página
+
+      const email = inputEmail.value;
+      const senha = inputSenha.value;
+
+      pMensagem.textContent = '';
+      pMensagem.className = 'mensagem-feedback';
+
+      if (!email || !senha) {
+        pMensagem.textContent = 'Por favor, preencha e-mail e senha.';
+        pMensagem.classList.add('mensagem-erro');
+        return;
+      }
+      
+      pMensagem.textContent = 'Entrando...';
+      pMensagem.classList.add('mensagem-sucesso');
+
+      signInWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log('Usuário logado:', user);
+          
+          pMensagem.textContent = 'Login bem-sucedido! Redirecionando...';
+          pMensagem.classList.add('mensagem-sucesso');
+
+          setTimeout(() => {
+            window.location.href = 'index.html'; // Ou para uma futura "area-logada.html"
+          }, 2000);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          console.error('Erro no login:', errorCode);
+
+          if (errorCode === 'auth/invalid-credential' || errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
+            pMensagem.textContent = 'E-mail ou senha incorretos.';
+          } else if (errorCode === 'auth/invalid-email') {
+            pMensagem.textContent = 'E-mail inválido.';
+          } else {
+            pMensagem.textContent = 'Ocorreu um erro ao tentar logar.';
+          }
+          pMensagem.classList.add('mensagem-erro');
+        });
+    });
+
+  </script>
+
 </body>
 </html>
