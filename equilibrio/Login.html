@@ -6,21 +6,6 @@
     <title>Login - Cuidado Emocional</title>
     <meta name="description" content="Acesse sua área exclusiva de paciente para agendar consultas e acompanhar seu histórico.">
     <link rel="stylesheet" href="css/estilos.css">
-    <style>
-      
-      .mensagem-feedback {
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        margin-top: 15px;
-      }
-      .mensagem-sucesso {
-        color: green;
-      }
-      .mensagem-erro {
-        color: red;
-      }
-    </style>
 </head>
 <body>
     <main class="pagina-interna">
@@ -31,6 +16,7 @@
             </header>
 
             <div class="conteudo-pagina">
+                
                 <form class="formulario" id="form-login">
                     <div class="grupo-campo">
                         <label for="email-login" class="rotulo-campo">E-mail *</label>
@@ -45,90 +31,53 @@
                     <button type="submit" class="botao-enviar">Entrar</button>
 
                     <p id="mensagem-feedback" class="mensagem-feedback"></p>
-
                 </form>
                 
-                <div style="text-align: center; margin: 30px 0;">
-                    <p><a href="cadastro.html" style="color: #6c757d; text-decoration: none;">Não tenho conta</a></p>
                 </div>
-                
-                <h2>Ainda não tem uma conta?</h2>
-                <p>Se você é um novo paciente, <a href="cadastro.html">clique aqui para se cadastrar</a> e agendar sua primeira consulta.</p>
-                
-            </div>
 
             <nav class="navegacao-volta">
-                <a href="index.html" class="botao-voltar">← Voltar ao Início</a>
+                <a href="index.php" class="botao-voltar">← Voltar ao Início</a>
             </nav>
         </div>
     </main>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBxVKuXlbC6xGkTpGbBQKr1RYXCNL8cZQ4",
-      authDomain: "equilibriomentalv2.firebaseapp.com",
-      projectId: "equilibriomentalv2",
-      storageBucket: "equilibriomentalv2.firebasestorage.app",
-      messagingSenderId: "1054376615387",
-      appId: "1:1054376615387:web:be993d37108b0afd251bfe"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
+  <script>
     const formLogin = document.getElementById('form-login');
-    const inputEmail = document.getElementById('email-login');
-    const inputSenha = document.getElementById('senha-login');
     const pMensagem = document.getElementById('mensagem-feedback');
 
     formLogin.addEventListener('submit', (event) => {
-      event.preventDefault(); // Impede o recarregamento da página
+      event.preventDefault(); 
 
-      const email = inputEmail.value;
-      const senha = inputSenha.value;
-
-      pMensagem.textContent = '';
-      pMensagem.className = 'mensagem-feedback';
-
-      if (!email || !senha) {
-        pMensagem.textContent = 'Por favor, preencha e-mail e senha.';
-        pMensagem.classList.add('mensagem-erro');
-        return;
-      }
-      
       pMensagem.textContent = 'Entrando...';
-      pMensagem.classList.add('mensagem-sucesso');
+      pMensagem.className = 'mensagem-feedback mensagem-sucesso';
 
-      signInWithEmailAndPassword(auth, email, senha)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log('Usuário logado:', user);
-          
-          pMensagem.textContent = 'Login bem-sucedido! Redirecionando...';
-          pMensagem.classList.add('mensagem-sucesso');
+      const formData = new FormData(formLogin);
+
+      fetch('php/login.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.sucesso) {
+          pMensagem.textContent = data.mensagem;
+          pMensagem.className = 'mensagem-feedback mensagem-sucesso';
 
           setTimeout(() => {
-            window.location.href = 'index.html'; // Ou para uma futura "area-logada.html"
+            window.location.href = 'index.php'; 
           }, 2000);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          console.error('Erro no login:', errorCode);
 
-          if (errorCode === 'auth/invalid-credential' || errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
-            pMensagem.textContent = 'E-mail ou senha incorretos.';
-          } else if (errorCode === 'auth/invalid-email') {
-            pMensagem.textContent = 'E-mail inválido.';
-          } else {
-            pMensagem.textContent = 'Ocorreu um erro ao tentar logar.';
-          }
-          pMensagem.classList.add('mensagem-erro');
-        });
+        } else {
+          pMensagem.textContent = data.mensagem;
+          pMensagem.className = 'mensagem-feedback mensagem-erro';
+        }
+      })
+      .catch(error => {
+        console.error('Erro no fetch:', error);
+        pMensagem.textContent = 'Erro de conexão com o servidor.';
+        pMensagem.className = 'mensagem-feedback mensagem-erro';
+      });
     });
-
   </script>
 
 </body>

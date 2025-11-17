@@ -1,3 +1,7 @@
+<?php
+// Adicionado para que o menu (se existir no futuro) saiba se está logado
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,6 +10,27 @@
     <title>Contato - Cuidado Emocional</title>
     <meta name="description" content="Entre em contato conosco para agendar sua consulta ou esclarecer dúvidas sobre nossos serviços de psicologia.">
     <link rel="stylesheet" href="css/estilos.css">
+
+    <style>
+      .mensagem-feedback {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .mensagem-sucesso {
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+      }
+      .mensagem-erro {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
 </head>
 <body>
     <main class="pagina-interna">
@@ -19,7 +44,7 @@
                 <h2>Agende sua Consulta</h2>
                 <p>Preencha o formulário abaixo e entraremos em contato para agendar sua primeira consulta. Todas as informações são tratadas com total confidencialidade.</p>
                 
-                <form class="formulario">
+                <form class="formulario" id="form-contato">
                     <div class="grupo-campo">
                         <label for="nome" class="rotulo-campo">Nome Completo *</label>
                         <input type="text" id="nome" name="nome" class="campo-entrada" required>
@@ -79,6 +104,8 @@
                     </div>
                     
                     <button type="submit" class="botao-enviar">Enviar Solicitação</button>
+
+                    <p id="mensagem-feedback" class="mensagem-feedback" style="display: none;"></p>
                 </form>
                 
                 <h2>Outras Formas de Contato</h2>
@@ -113,9 +140,45 @@
             </div>
 
             <nav class="navegacao-volta">
-                <a href="index.html" class="botao-voltar">← Voltar ao Início</a>
+                <a href="index.php" class="botao-voltar">← Voltar ao Início</a>
             </nav>
         </div>
     </main>
+
+    <script>
+        const formContato = document.getElementById('form-contato');
+        const pMensagem = document.getElementById('mensagem-feedback');
+
+        formContato.addEventListener('submit', (event) => {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            pMensagem.textContent = 'Enviando...';
+            pMensagem.className = 'mensagem-feedback mensagem-sucesso';
+            pMensagem.style.display = 'block';
+
+            const formData = new FormData(formContato);
+
+            // Aponta para o novo script na sua pasta 'php'
+            fetch('php/enviar_contato.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                pMensagem.textContent = data.mensagem;
+                if (data.sucesso) {
+                    pMensagem.className = 'mensagem-feedback mensagem-sucesso';
+                    formContato.reset(); // Limpa o formulário
+                } else {
+                    pMensagem.className = 'mensagem-feedback mensagem-erro';
+                }
+            })
+            .catch(error => {
+                console.error('Erro no fetch:', error);
+                pMensagem.textContent = 'Erro de conexão com o servidor. Tente novamente.';
+                pMensagem.className = 'mensagem-feedback mensagem-erro';
+            });
+        });
+    </script>
 </body>
 </html>

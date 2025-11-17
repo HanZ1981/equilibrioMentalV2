@@ -40,32 +40,32 @@
     <form class="form-box" id="form-cadastro">
       <div>
         <label for="nome">Nome completo</label><br>
-        <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
       </div>
 
       <div>
         <label for="instituicao">Instituição</label><br>
-        <input type="text" id="instituicao" placeholder="Digite sua instituição">
+        <input type="text" id="instituicao" name="instituicao" placeholder="Digite sua instituição">
       </div>
 
       <div>
         <label for="telefone">Telefone</label><br>
-        <input type="tel" id="telefone" placeholder="Digite seu telefone">
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
       </div>
 
       <div>
         <label for="email">Email</label><br>
-        <input type="email" id="email" placeholder="Digite seu email" required>
+        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
       </div>
 
       <div>
         <label for="senha">Senha (mínimo 6 caracteres)</label><br>
-        <input type="password" id="senha" placeholder="Digite sua senha" required>
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
       </div>
 
       <div>
         <label for="confirmarSenha">Confirmar senha</label><br>
-        <input type="password" id="confirmarSenha" placeholder="Confirme a senha" required>
+        <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Confirme a senha" required>
       </div>
 
       <button type="submit" class="btn">Cadastrar</button>
@@ -78,85 +78,45 @@
     </form>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBxVKuXlbC6xGkTpGbBQKr1RYXCNL8cZQ4",
-      authDomain: "equilibriomentalv2.firebaseapp.com",
-      projectId: "equilibriomentalv2",
-      storageBucket: "equilibriomentalv2.firebasestorage.app",
-      messagingSenderId: "1054376615387",
-      appId: "1:1054376615387:web:be993d37108b0afd251bfe"
-    };
-
-    const app = initializeApp(firebaseConfig);
-
-    const auth = getAuth(app);
-
+  <script>
+    
     const formCadastro = document.getElementById('form-cadastro');
-    const inputEmail = document.getElementById('email');
-    const inputSenha = document.getElementById('senha');
-    const inputConfirmarSenha = document.getElementById('confirmarSenha');
     const pMensagem = document.getElementById('mensagem-feedback');
 
+    
     formCadastro.addEventListener('submit', (event) => {
       event.preventDefault(); 
 
-      const email = inputEmail.value;
-      const senha = inputSenha.value;
-      const confirmarSenha = inputConfirmarSenha.value;
-
-      pMensagem.textContent = '';
-      pMensagem.className = 'mensagem-feedback';
-
-      if (senha !== confirmarSenha) {
-        pMensagem.textContent = 'As senhas não coincidem!';
-        pMensagem.classList.add('mensagem-erro');
-        return; // Para a execução
-      }
-
-      if (senha.length < 6) {
-        pMensagem.textContent = 'A senha deve ter no mínimo 6 caracteres.';
-        pMensagem.classList.add('mensagem-erro');
-        return; // Para a execução
-      }
-      
       pMensagem.textContent = 'Cadastrando...';
-      pMensagem.classList.add('mensagem-sucesso');
+      pMensagem.className = 'mensagem-feedback mensagem-sucesso';
 
-      createUserWithEmailAndPassword(auth, email, senha)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log('Usuário cadastrado:', user);
-          
-          pMensagem.textContent = 'Cadastro realizado com sucesso! Redirecionando para o login...';
-          pMensagem.classList.add('mensagem-sucesso');
+      const formData = new FormData(formCadastro);
+
+      fetch('php/cadastrar.php', {
+        method: 'POST',
+        body: formData 
+      })
+      .then(response => response.json()) 
+      .then(data => {
+        if (data.sucesso) {
+          pMensagem.textContent = data.mensagem;
+          pMensagem.className = 'mensagem-feedback mensagem-sucesso';
 
           setTimeout(() => {
             window.location.href = 'Login.html';
           }, 2000);
-
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error('Erro no cadastro:', errorCode, errorMessage);
-
-          if (errorCode === 'auth/email-already-in-use') {
-            pMensagem.textContent = 'Este e-mail já está em uso.';
-          } else if (errorCode === 'auth/invalid-email') {
-            pMensagem.textContent = 'Endereço de e-mail inválido.';
-          } else if (errorCode === 'auth/weak-password') {
-            pMensagem.textContent = 'A senha é muito fraca. Tente uma mais forte.';
-          } else {
-            pMensagem.textContent = 'Ocorreu um erro ao cadastrar. Tente novamente.';
-          }
-          pMensagem.classList.add('mensagem-erro');
-        });
+          
+        } else {
+          pMensagem.textContent = data.mensagem;
+          pMensagem.className = 'mensagem-feedback mensagem-erro';
+        }
+      })
+      .catch(error => {
+        console.error('Erro no fetch:', error);
+        pMensagem.textContent = 'Erro de conexão com o servidor. Tente novamente.';
+        pMensagem.className = 'mensagem-feedback mensagem-erro';
+      });
     });
-
   </script>
  
 </body>

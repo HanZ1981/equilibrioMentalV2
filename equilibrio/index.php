@@ -1,3 +1,7 @@
+<?php
+// Inicia a sessão para que possamos LER as variáveis de login
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,35 +14,50 @@
 <body>
     <main class="pagina-principal">
         <div class="container-principal">
-            <!-- Seção de Boas-vindas e Menu -->
+            
             <aside class="painel-lateral">
                 <div class="cabecalho-boas-vindas">
-                    <h1 class="titulo-boas-vindas">Olá seja bem vindo!</h1>
+                    
+                    <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == true): ?>
+                        <h1 class="titulo-boas-vindas">Olá, <?php echo htmlspecialchars($_SESSION['usua_nome']); ?>!</h1>
+                        
+                        <p style="color: #6c757d; font-size: 14px; margin-top: -5px;">
+                            (Perfil: <?php echo isset($_SESSION['papel']) ? htmlspecialchars($_SESSION['papel']) : 'Indefinido'; ?>)
+                        </p>
+
+                    <?php else: ?>
+                        <h1 class="titulo-boas-vindas">Olá seja bem vindo!</h1>
+                    <?php endif; ?>
+
                 </div>
                 
                 <nav class="menu-navegacao">
                     <ul class="lista-menu">
                         <li class="item-menu">
-                            <a href="atendimento.html" class="link-menu">• Atendimento</a>
+                            <a href="atendimento.php" class="link-menu">• Atendimento</a>
                         </li>
                         <li class="item-menu">
-                            <a href="depoimento.html" class="link-menu">• Depoimentos</a>
+                            <a href="depoimento.php" class="link-menu">• Depoimentos</a>
                         </li>
                         <li class="item-menu">
-                            <a href="contato.html" class="link-menu">• Contato</a>
+                            <a href="contato.php" class="link-menu">• Contato</a>
                         </li>
                         <li class="item-menu">
-                            <a href="profissionais.html" class="link-menu">• Conheça nossos profissionais</a>
+                            <a href="profissionais.php" class="link-menu">• Conheça nossos profissionais</a>
                         </li>
                     </ul>
                 </nav>
                 
                 <div class="area-botao">
-                    <a href="login.html" class="botao-login">Login</a>
+
+                    <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == true): ?>
+                        <a href="php/logout.php" class="botao-login">Sair</a>
+                    <?php else: ?>
+                        <a href="Login.html" class="botao-login">Login</a>
+                    <?php endif; ?>
+
                 </div>
             </aside>
-
-            <!-- Conteúdo Principal -->
             <section class="conteudo-principal">
                 <div class="area-central">
                     <div class="ilustracao-container">
@@ -67,7 +86,7 @@
                 </div>
                 
                 <footer class="rodape-navegacao">
-                    <a href="sobre.html" class="link-sobre">Sobre nós</a>
+                    <a href="sobre.php" class="link-sobre">Sobre nós</a>
                 </footer>
             </section>
         </div>
